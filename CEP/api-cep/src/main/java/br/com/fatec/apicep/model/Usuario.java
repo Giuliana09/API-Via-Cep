@@ -1,6 +1,7 @@
 package br.com.fatec.apicep.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,8 +10,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Getter @Setter @NoArgsConstructor
-@Entity
-@Table(name = "Usuarios")
+@Data
+@Entity(name = "Usuarios")
 public class Usuario implements Serializable {
 
     @Id

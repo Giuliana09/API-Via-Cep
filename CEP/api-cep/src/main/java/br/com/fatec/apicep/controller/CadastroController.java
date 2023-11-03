@@ -5,11 +5,11 @@ import br.com.fatec.apicep.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-@RestController
-@RequestMapping("cadastro")
+@Controller
 public class CadastroController {
 
     private final UsuarioService usuarioService;
@@ -19,7 +19,13 @@ public class CadastroController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("{cep}")
+    @GetMapping("cadastro")
+    public String Formulario() {
+        return "cadastro";
+    }
+
+    @GetMapping("/cadastro/{cep}")
+    @ResponseBody
     public Usuario Cadastro(@PathVariable("cep") String cep) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Usuario> resp = restTemplate.getForEntity(String.format("https://viacep.com.br/ws/%s/json/", cep), Usuario.class);
@@ -28,9 +34,19 @@ public class CadastroController {
         return cepResultado;
     }
 
-    @PostMapping
+    @PostMapping("cadastro/{cep}")
     public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
         Usuario user = usuarioService.Salvar(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        ResponseEntity<Usuario> responseEntity = ResponseEntity.status(HttpStatus.CREATED).body(user);
+
+        if (responseEntity.getStatusCodeValue() == HttpStatus.CREATED.value()) {
+            System.out.println("Cadastro feito");
+        } else {
+            System.out.println("Erro ao salvar cadastro");
+        }
+
+        return responseEntity;
     }
+
+
 }
