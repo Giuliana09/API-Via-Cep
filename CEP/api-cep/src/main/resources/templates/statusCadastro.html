@@ -14,9 +14,19 @@
 <div class="container">
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">Status Cadastro</h1>
+            <h1 class="display-4"><strong>Status Cadastro</strong></h1>
             <h3 class="lead" th:text="${msgStatusCadastro}"></h3>
             <p class="lead" th:text="'Usuário: ' + ${usuario.getNome()} + ' '+ ${usuario.getSobrenome()}"></p>
+            <p class="lead" th:text="'Cep: ' + ${usuario.getCep()}"></p>
+            <p class="lead" th:text="'Logradouro: ' + ${usuario.getLogradouro()}"></p>
+            <p class="lead" th:text="'Complemento: ' + ${usuario.getComplemento()}"></p>
+            <p class="lead" th:text="'Bairro: ' + ${usuario.getBairro()}"></p>
+            <p class="lead" th:text="'Localidade: ' + ${usuario.getLocalidade()}"></p>
+            <p class="lead" th:text="'Uf: ' + ${usuario.getUf()}"></p>
+            <p class="lead" th:text="'Ibge: ' + ${usuario.getIbge()}"></p>
+            <p class="lead" th:text="'Gia: ' + ${usuario.getGia()}"></p>
+            <p class="lead" th:text="'Ddd: ' + ${usuario.getDdd()}"></p>
+            <p class="lead" th:text="'Siafi: ' + ${usuario.getSiafi()}"></p>
         </div>
 
         <a class="btn btn-primary" href="/cadastro" role="button">Voltar a tela de Cadastro</a>
