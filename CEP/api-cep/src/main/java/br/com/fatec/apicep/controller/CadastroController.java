@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,13 +20,14 @@ public class CadastroController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("cadastro")
-    public String Formulario() {
+    @GetMapping("/")
+    public String Formulario(Model model) {
+        Usuario usuario =  new Usuario();
+        model.addAttribute("usuario", usuario );
         return "cadastro";
     }
 
     @GetMapping("/cadastro/{cep}")
-    @ResponseBody
     public Usuario Cadastro(@PathVariable("cep") String cep) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Usuario> resp = restTemplate.getForEntity(String.format("https://viacep.com.br/ws/%s/json/", cep), Usuario.class);
