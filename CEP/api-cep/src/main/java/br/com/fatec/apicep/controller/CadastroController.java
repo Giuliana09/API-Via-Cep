@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+
 
 @Controller
 public class CadastroController {
@@ -20,34 +20,26 @@ public class CadastroController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("/")
-    public String Formulario(Model model) {
+    @GetMapping("/cadastro")
+    public String formulario(Model model) {
         Usuario usuario =  new Usuario();
         model.addAttribute("usuario", usuario );
         return "cadastro";
     }
 
-    @GetMapping("/cadastro/{cep}")
-    public Usuario Cadastro(@PathVariable("cep") String cep) {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Usuario> resp = restTemplate.getForEntity(String.format("https://viacep.com.br/ws/%s/json/", cep), Usuario.class);
-        Usuario cepResultado = resp.getBody();
-        System.out.println(cepResultado);
-        return cepResultado;
-    }
 
-    @PostMapping("cadastro/{cep}")
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
+    @PostMapping("/cadastro")
+    public String create(@ModelAttribute Usuario usuario, Model model) {
         Usuario user = usuarioService.Salvar(usuario);
         ResponseEntity<Usuario> responseEntity = ResponseEntity.status(HttpStatus.CREATED).body(user);
 
         if (responseEntity.getStatusCodeValue() == HttpStatus.CREATED.value()) {
-            System.out.println("Cadastro feito");
+            model.addAttribute("msgStatusCadastro", "Cadastro feito");
         } else {
-            System.out.println("Erro ao salvar cadastro");
+            model.addAttribute("msgStatusCadastro", "Erro ao salvar cadastro");
         }
 
-        return responseEntity;
+        return "statusCadastro";
     }
 
 

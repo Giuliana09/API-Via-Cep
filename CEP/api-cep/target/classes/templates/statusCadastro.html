@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Status Cadastro</h1>
+            <h3 class="lead" th:text="${msgStatusCadastro}"></h3>
+            <p class="lead" th:text="'Usuário: ' + ${usuario.getNome()} + ' '+ ${usuario.getSobrenome()}"></p>
+        </div>
+
+        <a class="btn btn-primary" href="/cadastro" role="button">Voltar a tela de Cadastro</a>
+    </div>
+
+    <script src="cadastro-api.js"></script>
+</div>
+</body>
+</html>
