@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private String mensagem;
 
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository) {
@@ -18,7 +19,14 @@ public class UsuarioService {
 
     @Transactional
     public Usuario Salvar(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        if(verificacao(usuario)){
+            return usuarioRepository.save(usuario);
+        }
+        return null;
+    }
+
+    private boolean isCepValido(String cep) {
+        return cep != null && cep.matches("\\d{8}");
     }
 
     @Transactional
@@ -26,5 +34,28 @@ public class UsuarioService {
         return usuarioRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Usuario não encontrado")
         );
+    }
+
+    public boolean verificacao(Usuario usuario){
+        if (!isCepValido(usuario.getCep())) {
+            setMensagem("erro no CEP");
+            return false;
+        }  else if (usuario.getNome() == "" || usuario.getSobrenome() == "") {
+            setMensagem("preencha os campos nome e sobrenome");
+            return false;
+        } else if ("undefined".equals(usuario.getLocalidade())){
+            setMensagem("CEP não existente");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void setMensagem(String mensagem){
+        this.mensagem =  mensagem;
+    }
+
+    public String getMensagem() {
+        return mensagem;
     }
 }
