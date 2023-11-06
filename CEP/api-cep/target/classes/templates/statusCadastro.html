@@ -16,7 +16,7 @@
         <div class="container">
             <h1 class="display-4"><strong>Status Cadastro</strong></h1>
             <h3 class="lead" th:text="${msgStatusCadastro}"></h3>
-            <p class="lead" th:text="'<strong>Usuário:</strong> ' + ${usuario.getNome()} + ' '+ ${usuario.getSobrenome()}"></p>
+            <p class="lead" th:text="'Usuário: ' + ${usuario.getNome()} + ' '+ ${usuario.getSobrenome()}"></p>
             <p class="lead" th:text="'Cep: ' + ${usuario.getCep()}"></p>
             <p class="lead" th:text="'Logradouro: ' + ${usuario.getLogradouro()}"></p>
             <p class="lead" th:text="'Complemento: ' + ${usuario.getComplemento()}"></p>
@@ -29,7 +29,7 @@
             <p class="lead" th:text="'Siafi: ' + ${usuario.getSiafi()}"></p>
         </div>
 
-        <a class="btn btn-primary" href="/cadastro" role="button">Voltar a tela de Cadastro</a>
+        <a class="btn btn-primary" href="/cadastro" role="button">Voltar</a>
     </div>
 
     <script src="cadastro-api.js"></script>
